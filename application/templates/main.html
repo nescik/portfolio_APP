@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% block title %}Strona główna{% endblock %}
+
+{% block content %}
+
+    <!-- HEADER -->
+
+    <header>
+      <nav class="navbar navbar-expand-lg p-md-3 fixed-top">
+        <div class="container">
+          <a class="navbar-brand text-white" href="#">YOUR PHOTO</a>
+          <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars navButton"></i>
+          </button>
+    
+          <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <div class="mx-auto"></div>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Strona główna</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('artists') }}">Artysci</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('photos') }}">Zdjęcia</a>
+              </li>
+              <div class="icon-links">
+                <!-- <a class="nav-link py-1" href="/login">
+                  <i class="fas fa-search"></i>
+                </a> -->
+                {% if current_user.is_authenticated and current_user.is_admin == false %}
+                  <li class="nav-item dropdown dropdown_profil">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="{{user_img}}" class="img-fluid profil_img" />
+                      {% if current_user.name == None or current_user.surname == None %}
+                        {{ current_user.login}}
+                      {% else %}
+                        {{ current_user.name }} {{ current_user.surname }}
+                      {% endif %}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{{ url_for('user_dashboard') }}">Mój profil</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="{{ url_for('logout') }}">Wyloguj się</a></li>
+                    </ul>
+                  </li>
+                {% elif current_user.is_authenticated and current_user.is_admin == true%}
+                  <li class="nav-item dropdown dropdown_profil py-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-users-cog"></i>
+                      <span>ADMIN</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{{ url_for('admin_panel') }}">Panel admina</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="{{ url_for('logout') }}">Wyloguj się</a></li>
+                    </ul>
+                  </li>
+                {% else %}
+                  <a class="nav-link px-3" href="/login">
+                    <i class="fas fa-user"></i>
+                  </a>
+                {% endif %}
+              </div>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- HEADER -->
+
+    <!-- GALLERY -->
+
+    <div class="container text-center py-5">
+
+        <h1 class="text-images">Najnowsze zdjęcia</h1>
+
+        <div class="gallery">
+          {% for photo in photos %}
+            <div class="box">
+                <div class="imgBx">
+                    <img src="{{url_for('static', filename='img/photos/' + photo.name)}}">
+                </div>
+               <a href="{{ url_for('photo', photo_id = photo.id) }}">
+                <div class="content">
+                  <h2>{{ photo.user.name }} {{photo.user.surname}}</h2>
+                </div>
+              </a>  
+            </div>
+          {% endfor %}
+
+          
+        </div>
+        <button type="button" class="btn btn-dark" id="more_photos">Pokaż więcej...</button>
+    
+    </div>
+
+    <!-- GALLERY -->
+
+    <!-- BEST PHOTO -->
+
+    <h1 class="text-center">Najlepiej oceniane zdjęcia</h1>
+    <div class="container container-my mt-5">
+  
+      <div class="best">
+
+        {% for photo, rating, avg in top %}
+          <div class="b1">
+            <h6>{{ photo.user.name }} {{ photo.user.surname }}</h6>
+            <a href="{{ url_for('photo', photo_id = photo.id) }}">
+              <img src="{{url_for('static', filename='img/photos/'+ photo.name)}}"  />
+            </a>
+            <h5 class="text-center">Ocena: {{'%0.2f'|format(avg|float)}}/5</h5 class="text-center">
+          </div>
+        {% endfor %}
+
+      </div>  
+          
+    </div>
+
+
+
+    <!-- BEST PHOTO -->
+
+    <!-- BEST PHOTOGRAPHER  -->
+
+    <h1 class="text-center">Ostatnio do nas dołączyli</h1>
+    <div class="container container-cards">
+
+      {% for user in users %}
+        {% if user.is_admin == false%}
+        <div class="card">
+          <div class="bg-image">
+            <img src="{{url_for('static', filename='img/bg-image.jpg')}}" />
+          </div>
+          <div class="pic">
+            <img src="{{url_for('static', filename='img/pictures/'+ user.picture)}}" />
+          </div>
+          <div class="info">
+            <a href="{{ url_for('artist', artist_id = user.id) }}">
+              <h3>{{ user.name }} {{ user.surname }}</h3>
+            </a>
+            <p>{{ '%.160s' % user.about }}</p>
+            <div class="icons">
+              <a href="#" class="fab fa-facebook-f"></a>
+              <a href="#" class="fab fa-twitter"></a>
+              <a href="#" class="fab fa-instagram"></a>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+    
+    <!-- BEST PHOTOGRAPHER -->
+
+    <!-- FOOTER -->
+
+    <div class="container-fluid bg-white">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+          </a>
+          <span class="text-muted footer-span">&copy; 2021 Your Photo</span>
+        </div>
+    
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex footer-icons">
+            <li class="ms-3"><a href="#" class="fab fa-facebook-f"></a></li>
+            <li class="ms-3"><a href="#" class="fab fa-twitter"></a></li>
+            <li class="ms-3"><a href="#" class="fab fa-instagram"></a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <!-- FOOTER -->
+
+    <script>
+      $(document).ready(function(){
+        var photoCount = 10;
+      $("#more_photos").on("click", function() {
+      photoCount = photoCount + 10;
+        $(".gallery").load("/more_photos", {
+          newCount : photoCount
+          });
+        });
+      }); 
+
+    </script>
+    
+{% endblock %}

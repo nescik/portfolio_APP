@@ -1,0 +1,169 @@
+{% extends "user_dashboard.html"%}
+
+
+{% block title %}Edytuj dane{% endblock %}
+
+
+{% block content%}
+<div class="container edit_profil" >
+  <h4 class="text-center">Dane konta</h4>
+  <div class="row">
+    <div class="col-6">
+      <div class="profil_data border rounded shadow p-3 mb-5 bg-body mx-5">
+        <div class="row">
+          <div class="col-3 edit-img">
+            <img src="{{user_img}}" class="img-fluid" />
+          </div>
+          <div class="col-6">
+            <span class="span_title">Imie:</span><span>{{current_user.name}}</span> <br />
+            <span class="span_title">Nazwisko:</span><span>{{current_user.surname}}</span> <br />
+            <span class="span_title">Email:</span><span>{{current_user.email}}</span> <br />
+          </div>
+        </div>
+          <div class="row my-1">
+            <div class="col-12">
+              <span class="span_title">Wiek:</span><span>{{current_user.age}}</span> <br />
+              <span class="span_title">Doświadczenie:</span><span>{{current_user.experience}}</span> <br />
+              <span class="span_title">Zakres pracy:<br />
+                {% for tag in current_user.tags %}
+                  <span class="badge bg-success mt-1">{{ tag.name }}</span>
+                {% endfor %}
+              </span>
+            </div>
+          </div>        
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-outline-light text-secondary position-absolute top-0 end-0" data-bs-toggle="modal" data-bs-target="#data_Modal">
+          <i class="fas fa-pen"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="profil_data border rounded shadow p-3 mb-5 bg-body mx-5">
+        <span class="span_title">O mnie:</span><br />
+        <div class="span_about">
+          <span>
+            {{current_user.about}}
+          </span>
+        </div>  
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-outline-light text-secondary position-absolute top-0 end-0" data-bs-toggle="modal" data-bs-target="#data_Modal2">
+          <i class="fas fa-pen"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="data_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edytuj dane</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{url_for('user_profil')}}" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+          <div class="mb-3">
+            {{ form.picture.label(class="form-label") }}
+            {{ form.picture(class="form-control") }}
+            {% if form.picture.errors %}
+              {% for error in form.picture.errors %}
+                <span class="text-danger">{{ error }}</span><br />
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control") }}
+          </div>
+          <div class="mb-3">
+            {{ form.surname.label(class="form-label") }}
+            {{ form.surname(class="form-control") }}
+          </div>
+          <div class="mb-3">
+            {{ form.email.label(class="form-label") }}
+
+            {% if form.email.errors %}
+                {{ form.email(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.email(class="form-control") }}
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            {{ form.age.label(class="form-label") }}
+            {{ form.age(class="form-control") }} 
+          </div>
+          <div class="mb-3">
+            {{ form.experience.label(class="form-label") }}
+            {{ form.experience(class="form-select") }}
+          </div>
+          <div class="mb-3">
+            {{ form.tags.label(class="form-label") }} <br />
+              {% for tag in form.tags %}
+                <div class="btn-group px-1 py-1" id="tags_check" role="group" aria-label="Basic checkbox toggle button group">
+                        {{ tag(class="btn-check") }}
+                        {{ tag.label(class="btn btn-outline-dark") }}
+                </div>
+              {% endfor %}
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary">Zapisz</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade" id="data_Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edytuj dane</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{url_for('user_profil')}}">
+          {{ form2.hidden_tag() }}
+          <div class="mb-3">
+            {{ form2.about.label(class="form-label") }}
+            <textarea name="about"  rows="10" class="form-control">{{ current_user.about }}
+            </textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-secondary">Zapisz</button>
+        </form>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+{% for tag in user_tags %}
+<script type="text/javascript">
+
+    var tag = '{{tag}}';
+    var inputs = document.getElementsByClassName('btn-group');
+    for(var i=0; i<inputs.length; i++){
+      var c = $("#tags-"+i).val();
+      if( c === tag){
+        $("#tags-"+i).attr("checked", "checked");
+      }
+    }
+
+</script>
+{% endfor %}
+
+{% endblock %}

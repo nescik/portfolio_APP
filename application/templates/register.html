@@ -1,0 +1,59 @@
+
+{% extends "login.html"%}
+{% block title %}Rejestracja{% endblock %}
+
+{% block content%}
+<form method="POST" action="/register" >
+    {{ form.hidden_tag() }}
+    <div class="mb-3 mx-5 my-4 ">
+        <!-- <label for="login" class="form-label">Login</label>
+        <input type="text" class="form-control" id="login" name="login" required> -->
+        {{form.login.label(class="form-label")}}
+            {% if form.login.errors %}
+                {{ form.login(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.login.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.login(class="form-control") }}
+            {% endif %}
+    </div>
+    <div class="mb-3 mx-5 my-4 ">
+        <!-- <label for="user_email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="user_email" aria-describedby="emailHelp" name="user_email" required> -->
+        {{ form.email.label(class="form-label") }}
+
+            {% if form.email.errors %}
+                {{ form.email(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.email(class="form-control") }}
+            {% endif %}
+
+    </div>
+     <div class="mb-3 mx-5">
+        <!-- <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required> -->
+        {{form.password.label(class="form-label")}} 
+        {{form.password(class="form-control")}}
+    </div>
+    {% if error %}
+        <div class="alert alert-danger text-center">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <div class="d-flex justify-content-center mb-3">
+        
+        {{form.submit(class="btn btn-dark col-10")}}
+    </div>
+</form>
+
+
+{% endblock%}

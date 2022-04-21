@@ -1,0 +1,98 @@
+{% extends "admin_panel.html" %}
+
+
+{% block content %}
+
+<div class="row justify-content-center pt-5">
+    <button class="btn btn-success btn-add" data-bs-toggle="modal" data-bs-target="#add_tagModal">
+        Dodaj kategorię
+    </button>
+</div>
+
+<!-- Modal ADD TAG -->
+<div class="modal fade" id="add_tagModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Dodaj kategorię</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.name.label(class="form-label") }}
+                {{ form.name(class="form-control") }}
+            </div>
+              <button type="submit" class="btn btn-primary">Dodaj</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="row py-5">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tag in tags %}
+            <tr>
+                <td>{{tag.id}}</td>
+                <td>{{tag.name}}</td>
+                <td>
+                    <a class="btn btn-sm btn-danger delete-confirm" type="button" 
+                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                    data-desc="{{ 'Usunąć kategorię o id {}, {}?'.format(tag.id, tag.name) }}"
+                    data-url="{{ url_for('delete_tag', tag_id = tag.id) }}" >
+                      Usuń
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Kategoria zostanie usunięty</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="idDeleteModalBody">
+        
+      </div>
+      <div class="modal-footer">
+        <form action="" method="GET" id="confirmDeleteForm">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+          <button type="submit" class="btn btn-danger">Usuń</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function (){
+    $('.delete-confirm').click(function() {
+      var desc = $(this).attr('data-desc');
+      var url = $(this).attr('data-url');
+
+      $('#idDeleteModalBody').text(desc);
+      $('#confirmDeleteForm').attr("action", url);
+    });
+  });
+</script>
+
+
+{% endblock %}

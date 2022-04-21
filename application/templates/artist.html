@@ -1,0 +1,59 @@
+{% extends "artists.html" %}
+
+
+
+{% block content %}
+
+<div class="container profil-artist">
+    <div class="profil_bg">
+    <img src="{{url_for('static', filename='img/bg-image.jpg')}}" />
+    </div>
+    <div class="profil_avatar">
+    <img src="{{url_for('static', filename='img/pictures/' + artist.picture)}}" />
+    <span class="text-center">
+        {{ artist.name }} {{ artist.surname }}
+    </span>
+    </div>
+    <div class="container-fluid w-100 pi_content">
+    <div class="row profil_info py-3">
+        <div class="col-3 px-3">
+        <div class="title">
+            <h5>Doświadczenie</h5>
+            <div class="title_content">
+            <p>Wiek: {{artist.age}}</p>
+            <p>Doświadczenie: {{ artist.experience}}</p>
+            </div>
+            <div class="range_work">
+                <h5>Zakres pracy:</h5>
+                {% for tag in artist.tags %}
+                    <span class="badge bg-success">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        </div>
+        <div class="col-1 text-end">
+        <h5>O mnie:</h5>
+        </div>
+        <div class="col-7 about">
+            <p>
+                {{ artist.about }}
+            </p>
+        </div>
+    </div>
+    <div class="row profil_gallery my-5">
+        <h5>Dodane zdjęcia</h5>
+            {% for photo in artist.photos %}
+                <div class="box_img">
+                    <a href="{{ url_for('photo', photo_id = photo.id) }}">
+                        <img src="{{url_for('static', filename='img/photos/' + photo.name)}}">
+                    </a>
+                </div>
+            {% endfor %}                               
+    </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

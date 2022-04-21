@@ -1,0 +1,399 @@
+body{
+    overflow:hidden;
+
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(92, 92, 92);
+    border-radius: 6px;
+}
+
+.sidebar-container{
+    min-height: 100vh;
+    background-color: #525252;
+    width: 250px;
+
+}
+
+.sidebar-container .logo{
+    padding: .875rem 1.25rem;
+}
+
+.sidebar-container .menu{
+    width: 250px;
+}
+
+.sidebar-container .menu ul {
+    margin-top: 50px;
+}
+
+.sidebar-container .menu ul li {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    list-style: none;
+    line-height: 50px;
+    margin: 5px 0;
+}
+
+.menu ul li a{
+    text-decoration: none;
+    border-radius: 12px;
+    margin-right: 20px;
+    height: 50px;
+    width: 90%;
+
+}
+
+.menu ul li a:hover{
+    color: #525252 !important;
+    background: #fff;
+}
+
+.menu ul li a i{
+    height: 50px;
+    min-width: 30px;
+    border-radius: 12px;
+    line-height: 50px;
+    margin-left: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+.dropdown_profil{
+    margin-right: 70px;
+    color: black;
+}
+
+.dropdown_profil img{
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#content{
+    overflow-y: auto !important;
+    padding-top: 20px;
+    max-height: 100vh;
+}
+
+.profil_bg img{
+    width: 100%;
+    height: 400px;
+    position: relative;
+    object-fit: cover;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 80%);
+}
+
+.profil_avatar{
+    height: 250px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 60px;
+    top: -260px;
+    border-radius: 12px;
+}
+
+.profil_avatar img{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    object-fit: cover;
+    border: 10px solid white;
+    border-radius: 15px;
+}
+
+.profil_avatar span{
+    position: absolute;
+    top: 220px;
+    font-size: 28px;
+}
+.pi_content{
+    position: relative;
+    top: -170px;
+}
+
+.profil_info{
+    min-height: 260px;
+    background-color: #e7e7e7;
+    border-radius: 10px;
+}
+
+
+.profil_info .title .title_content{
+    font-size: 18px;
+}
+
+.profil_info .title .range_work span{
+    margin-top: 5px;
+    font-size: 18px ;
+}
+
+
+.profil_info span{
+    font-size: 22px;
+    margin-left: 10px;
+}
+
+.profil_info i{
+    font-size: 22px;
+}
+
+.profil_info .about{
+    font-size: 18px;
+}
+
+.profil_gallery {
+    background-color: #e7e7e7;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.profil_gallery .box_img{
+    width: 200px;
+    margin: 10px;
+}
+
+
+
+.profil_gallery .box_img img{
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    margin: 10px;
+    border-radius: 12px;
+}
+
+
+.edit_profil{
+    background-color: rgb(216, 216, 216);
+    height: 500px;
+    border-radius: 12px;
+    margin-top: 90px;
+}
+
+.edit_profil .text-center{
+    margin-bottom: 0 !important;
+}
+
+.edit_profil .profil_data{
+    height: 380px;
+    margin-top: 40px;
+    padding-top: 15px;
+    position: relative;
+}
+
+
+.edit_profil .profil_data img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 10px, 10px, 0 , 10px;
+
+}
+.edit_profil .profil_data .edit-img{
+    height: 120px;
+    width: 120px;
+}
+
+.edit_profil .profil_data .span_title{
+    margin: 10px 10px 0 10px;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.edit_profil .profil_data span{
+    font-size: 19px;
+}
+
+.edit_profil .profil_data button i{
+    color:black;
+}
+
+.edit_profil .profil_data button{
+    margin: 10px 10px 0 10px;
+    background: rgb(216, 216, 216);
+    color:black;
+}
+
+.edit_profil .profil_data button:hover{
+    background-color: rgb(170, 170, 170);
+}
+
+
+.edit_profil .profil_data .span_title{
+    font-weight: 600;
+    font-size: 22px;
+    padding-top: 80px;
+}
+
+
+.edit_profil .profil_data .span_about{
+    margin-top: 20px;
+    width: 95%;
+}
+
+.edit_profil .profil_data .span_about span{
+    font-size: 17px;
+    top: 100px;
+}
+
+.modal-body label{
+    font-size: 19px;
+}
+
+
+.add_foto{
+    background-color: rgb(216, 216, 216);
+    height: 770px;
+    border-radius: 12px;
+    margin-top: -80px;
+
+}
+
+.add_foto .btn-outline-dark:hover{
+    color: red;
+    border-color: red;
+}
+
+.add_foto h2{
+    padding-top: 10px;
+}
+
+.add_foto h5{
+    margin-top: 15px;
+}
+
+.add_foto .form {
+    margin:80px 0px 20px;
+    padding:0px 50px;
+  }
+
+.add_foto .form .grid {
+    margin-top:30px;
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+  }
+
+.add_foto .form .grid .form-element {
+    width:auto;
+    height:auto;
+    box-shadow:0px 0px 20px 5px rgba(100,100,100,0.1);
+  }
+
+.add_foto .form .grid .form-element input {
+    display:none;
+  }
+
+.add_foto .form .grid .form-element img {
+    max-height: 500px;
+    width: auto;
+    object-fit:cover;
+  }
+
+.add_foto .form .grid .form-element div {
+    position:relative;
+    height:40px;
+    margin-top:-40px;
+    background:rgba(0,0,0,0.5);
+    text-align:center;
+    line-height:40px;
+    font-size:13px;
+    color:#f5f5f5;
+    font-weight:600;
+    
+}
+
+.add_foto .form .grid .form-element div span {
+    font-size:40px;
+}
+
+.add_foto .form button{
+    width: 200px;
+}
+
+.add_foto .add_tags{
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    margin-top: 20px;
+}
+
+.add_foto .add_tags label{
+    background-color: white;
+}
+
+.rated_container h4{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.rated_photos{
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 150px;
+}
+
+.rated_photos .box img{
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+.rated_photos .box:hover{
+    transform: scale(1.02);
+    box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+    border-radius: 10px;
+}
+
+.rated_photos .rated{
+    padding-top: 10px;
+}
+
+#display_message{
+    width: 400px;
+    min-height: 300px;
+    height: auto;
+    padding: 10px;
+}
+
+@media (max-width:768px){
+    .sidebar-container{
+        display: none;
+    }
+
+    .profil_avatar{
+        top: -220px;
+    }
+}
+
+@media (max-width:992px){
+    .sidebar-container{
+        display: none;
+    }
+}

@@ -1,0 +1,512 @@
+html, body {
+    overflow-x: hidden;
+    background-color: #ebebeb;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(92, 92, 92);
+    border-radius: 6px;
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+header{
+    background-image: url(../img/header.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    position: relative;
+}
+
+header::after{
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position:absolute;
+    top: 0;
+    left: 0;
+}
+
+
+.navButton{
+    color: white;
+    font-size: 30px;
+}
+
+
+.navbar{
+    background-color: transparent;
+    transition: all 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+.nav-link{
+    font-size: 20px !important;
+    color: white !important;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbarsticky{
+    background-color:rgba(0, 0, 0, 0.8);
+}
+
+.nav_photos{
+    background-color:rgba(0, 0, 0, 0.8);
+}
+
+.nav-link:hover{
+    color: red !important;
+}
+
+.navbar .icon-links{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -5px;
+    position: relative;
+    
+}
+
+.dropdown_profil{
+    margin-right: 70px;
+    color: black;
+    
+}
+
+.dropdown_profil img{
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+
+.gallery{
+    width: 100%;
+    height: auto;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.gallery .box{
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+ .gallery .box img{
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+.gallery .box:hover{
+    z-index: 1;
+    transform: scale(1.02);
+    box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+    border-radius: 10px;
+}
+
+.gallery .box .imgBx:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: linear-gradient(180deg, #fff, #000);
+    mix-blend-mode: multiply;
+    opacity: 0;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+.gallery .box:hover .imgBx:before{
+    opacity: 1;
+    border-radius: 10px;
+}
+
+.gallery .box .content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    padding: 20px;
+    align-items: flex-end;
+}
+
+.gallery .box .content h2{
+    color: #fff;
+    transition: 0.5s;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-size: 20px;
+    opacity: 0;
+}
+
+.gallery .box:hover .content h2{
+    opacity: 1;
+}
+
+.h2_grid{
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.h2_img{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.gallery .box .content p{
+    color: #fff;
+    opacity: 0;
+    transition: 0.5s;
+    font-size: 14px;
+}
+
+.gallery .box:hover .content p{
+    opacity: 1
+}
+
+.loginPage{
+    width: 100vw;
+    height: 100vh;
+}
+
+.loginPage .login a{
+    background-color: white;
+   
+}
+.loginPage .login a:hover{
+    background-color: #000;
+    color: #fff;
+}
+
+
+
+.loginImage{
+    background-image: url("../img/loginImage.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+
+#loginForm .alert{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.arrow-left{
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.arrow-left i{
+    width: 100px;
+    color: black;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 47%;
+    left: 130%;
+    font-size: 25px;
+}
+
+.text-images{
+     margin-top: 50px;
+     font-size: 60px;
+}
+
+
+.container-my .best{
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: baseline;
+    grid-auto-flow: row dense;
+    margin-bottom: 100px;
+}
+
+.b1 img{
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    max-height: 350px;
+    width: auto;
+    object-fit: contain;
+    object-position:center;
+}
+
+.b1 img:hover{
+    z-index: 1;
+    transform: scale(1.02);
+    box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+    border-radius: 10px;
+}
+
+.container-cards{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 150px;
+}
+
+.card{
+    height: 530px;
+    width: 300px;
+    margin: 20px;
+    box-shadow: 0 3px 5x #000;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    background-color: white;
+
+}
+
+
+.card .bg-image img{
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    clip-path: polygon(0 0, 100% 0%, 100% 70%, 45% 100%, 0 70%);
+}
+
+.card .pic img{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 10px solid white;
+    margin-top: -90px;
+    position: relative;
+    object-fit: cover;
+}
+
+.card .info{
+    color:rgb(80, 80, 80);
+    font-size: 20px;
+    padding: 10px 0;
+}
+
+.card .info h3{
+    margin-top: -8px;
+    
+}
+.card .info a{
+    text-decoration: none;
+    color: black;
+    font-style: italic;
+}
+
+.card .info p{
+    font-size: 16px;
+    padding: 10px 20px;
+    color: black;
+    margin-top: -10px;
+}
+
+.card .info .icons a{
+    font-size: 25px;
+    text-decoration: none;
+    color:rgb(80, 80, 80);
+    margin-top: -40px;
+    padding: 0 5px;
+}
+
+.card .info .icons a:hover{
+    color: red;
+}
+
+.footer-icons a{
+    font-size: 25px;
+    text-decoration: none;
+    color:rgb(80, 80, 80);
+    display: inline-block;
+}
+
+.footer-icons a:hover{
+    color: red;
+}
+
+.footer-icons{
+    margin-right: 100px;
+}
+
+.footer-span{
+    margin-left: 100px;
+}
+
+.photo_content{
+    height: 100vh;
+    padding-top: 30px;
+    background-color: white;
+}
+
+
+.photo{
+
+    min-height: 870px;
+    width: auto;
+    padding: 15px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    position: relative;
+}
+
+.photo img{
+    max-height: 700px;
+    width: auto;
+    max-width: 800px;
+    object-fit: contain;
+    
+}
+
+
+.photo_content .photo .stars i {
+    color: gold;
+    font-size: 25px;
+}
+
+
+.photo_content .comment_box{
+    overflow-y: scroll;
+    max-height: 670px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+
+.photo_content .comment_box .comment{
+    margin-top: 10px;
+    width: 100%;
+    min-height: 100px;
+    border-radius: 10px;
+}
+
+.photo_content .comment_box .comment .comment_content{
+    padding: 15px 15px 0 15px;
+  
+}
+
+.photo_content .comment_box .comment .comment_author{
+    font-size: 17px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.photo_content .comment_box .comment .comment_author span{
+    font-size: 14px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+
+.left_box{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    
+}
+
+.add_comment{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.add_comment button{
+    height: auto;
+    border: none;
+    background: transparent;
+}
+
+.add_comment button i {
+    font-size: 2rem;
+    color: rgb(37, 37, 37);
+}
+
+.add_comment textarea{
+    
+    resize: none;
+}
+
+.rate{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#starsInput{
+    display:none;
+    visibility:hidden;
+}
+
+.add_rate{
+    display:none;
+    visibility:hidden;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
+
+
+
+@media (min-width:768px){
+    .container-my .best{
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto auto;
+    }
+
+}
+
+@media (min-width:992px){
+    .container-my .best{
+        grid-template-columns: auto auto auto;
+    } 
+}
+
+

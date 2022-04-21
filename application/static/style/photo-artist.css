@@ -1,0 +1,72 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.search{
+    margin-top: 160px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.results {
+    margin-top: 0px;
+    background-color: #fff;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-bottom: 40px;
+}
+
+.search form{
+    display: flex;
+}
+
+.search form .form-select{
+    width: 200px;
+}
+
+.search form button{
+    margin-left: 10px;
+}
+
+.search .show_all{
+    margin-top: 10px;
+}
+
+.results-artists{
+    background-color: #fff;
+    margin-top: 160px;
+    margin-bottom: 60px;
+}
+
+.results-artists h1{
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.container-cards{
+    margin-top: 50px !important;
+}
+
+.profil-artist{
+    background-color: #fff;
+    margin-top: 160px;
+    margin-bottom: 20px;
+    padding: 40px;
+}
+
+.results-artists .info a{
+    text-decoration: none;
+    color: black;
+    font-style: italic;
+}
+
+.results-artists .info a:hover{
+    text-decoration: underline;
+}
+
+
+#like{
+   font-size: 40px;
+}

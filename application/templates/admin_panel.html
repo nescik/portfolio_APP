@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/macy@2.5.1/dist/macy.min.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style/admin_style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='javaScripts/rating.js')}}"></script>
+    <title>{% block title%}Panel admina{% endblock %}</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <ul class="nav justify-content-center bg-dark">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('admin_panel') }}">Użytkownicy</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('admin_photos') }}">Zdjęcia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('admin_tags') }}">Kategorie</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('logout') }}">Wyloguj się</a>
+            </li>
+          </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="row admin_content">
+        {% block content %}
+
+            <div class="row py-5">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Imie</th>
+                        <th scope="col">Nazwisko</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Aktywny</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{user.id}}</td>
+                            <td>{{user.name}}</td>
+                            <td>{{user.surname}}</td>
+                            <td>{{user.email}}</td>
+                            <td>
+                              <a href="{{ url_for('user_status_change', user_id = user.id) }}">
+                                {% if user.is_active %}
+                                  <i class="fa-solid fa-check"></i> 
+                                {% else %}
+                                  <i class="fa-regular fa-square"></i>
+                                {% endif %}
+                              </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-danger delete-confirm" type="button" 
+                                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                    data-desc="{{ 'Usunąć użytkownika o id {}, {} {}?'.format(user.id, user.name, user.surname) }}"
+                                    data-url="{{ url_for('delete_user', user_id = user.id) }}" >
+                                    Usuń
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endblock %}
+    </div>
+        
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Użytkownik zostanie usunięty</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="idDeleteModalBody">
+          
+        </div>
+        <div class="modal-footer">
+          <form action="" method="GET" id="confirmDeleteForm">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+            <button type="submit" class="btn btn-danger">Usuń</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    $(document).ready(function (){
+      $('.delete-confirm').click(function() {
+        var desc = $(this).attr('data-desc');
+        var url = $(this).attr('data-url');
+  
+        $('#idDeleteModalBody').text(desc);
+        $('#confirmDeleteForm').attr("action", url);
+      });
+    });
+  </script>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{url_for('static', filename='javaScripts/js.js')}}"></script>
+</body>
+</html>

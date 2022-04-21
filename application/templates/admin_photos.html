@@ -1,0 +1,80 @@
+{% extends "admin_panel.html" %}
+
+
+{% block content %}
+
+
+<div class="row py-5">
+    <h5 class="py-2">Liczba wszystkich zdjęć: {{c}}</h5>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Data dodania</th>
+            <th scope="col">Kto dodał</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for photo in photos %}
+            <tr>
+                <td>{{photo.id}}</td>
+                <td>
+                    <img src="{{url_for('static', filename='img/photos/' + photo.name)}}">
+                    {{photo.name}}
+                </td>
+                <td>{{photo.data_posted}}</td>
+                <td>{{photo.user.name}} {{photo.user.surname}}</td>
+                <td>
+                    <a class="btn btn-sm btn-danger delete-confirm" type="button" 
+                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                    data-desc="{{ 'Usunąć zdjęcie o id {}, {}?'.format(photo.id, photo.name) }}"
+                    data-url="{{ url_for('delete_photo', photo_id=photo.id) }}" >
+                      Usuń
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Zdjęcie zostanie usunięte</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="idDeleteModalBody">
+          
+        </div>
+        <form action="" method="POST" id="confirmDeleteForm">
+            <div class="mb-3 px-3">
+              <label for="reason" class="form-label">Powód</label>
+              <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
+            </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+              <button type="submit" class="btn btn-danger">Usuń</button>
+          </div>
+       </form>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    $(document).ready(function (){
+      $('.delete-confirm').click(function() {
+        var desc = $(this).attr('data-desc');
+        var url = $(this).attr('data-url');
+  
+        $('#idDeleteModalBody').text(desc);
+        $('#confirmDeleteForm').attr("action", url);
+      });
+    });
+  </script>
+  
+{% endblock %}

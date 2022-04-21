@@ -1,0 +1,49 @@
+{% extends "user_dashboard.html"%}
+
+
+{% block title %}Ocenione zdjęcia{% endblock %}
+
+
+{% block content%}
+
+<div class="container rated_container">
+    <h4>Zdjęcia, które oceniłeś </h4>
+    <div class="rated_photos">
+        {% for photo, rating in photos %}
+        <div>
+            <a href="{{ url_for('photo', photo_id = photo.id) }}">
+                <div class="box">
+                    <img src="{{url_for('static', filename='img/photos/' + photo.name)}}">
+                </div>
+            </a>
+            <div class="rated">
+                <span>Twoja ocena:</span>
+                <div class="stars" data-rating-stars="5" data-rating-readonly="true" data-rating-value="{{rating.rating}}" style="pointer-events: none;"></div>
+            </div> 
+        </div>
+           
+        
+        {% endfor %}
+    </div>
+</div>
+
+
+<script>
+    var macy =  Macy({
+    container: '.rated_photos',
+    trueOrder: false,
+    waitForImages: false,
+    margin: 30,
+    breakAt: {
+        1200: 2,
+        940: 3,
+        520: 2,
+        400: 1
+    },
+});
+</script>
+
+{% endblock %}
+
+
+

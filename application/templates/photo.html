@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Zdjęcie {{title}} {% endblock %}
+
+{% block content %}
+
+
+
+<div class="container_fluid photo_content">
+    <a href="/">
+        <div class="col arrow-left bg-dark">
+                <i class="fas fa-arrow-left text-white"></i>
+        </div>
+    </a>
+    <div class="row justify-content-md-center">
+        <div class="col-8 photo shadow rounded">
+            <div class="tags">
+                {% for tag in photo.tags %}
+                    <a href="{{ url_for('photos_tag', name_tag = tag.name) }}" id="go_photo">
+                        <span class="badge bg-success">{{ tag.name }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+            <img src="{{url_for('static', filename='img/photos/' + photo.name)}}" class="my-2">
+            <div class="rate">
+                {% if user_rate == None%}
+                    <div class="stars"></div>
+                {% else %}
+                    <div class="stars" data-rating-stars="5" data-rating-readonly="true" data-rating-value="{{user_rate}}" style="pointer-events: none;"></div>
+                {% endif %}
+                <div>
+                    {% if rate != None %}
+                        Ocena: {{rate}}
+                    {% endif %}
+                </div>
+            </div>     
+            <div class="col-1 position-relative ">
+                <form method="POST">
+                    {{ form2.hidden_tag() }}
+                    {{ form2.rating(class="form-control", id="starsInput") }}
+                    <button type="submit" class="btn btn-outline-dark btn-sm add_rate">Oceń</button>
+                </form>    
+            </div>
+           
+        </div>
+        
+        <div class="col-3 shadow rounded left_box">
+            <div class="row comment_box">
+
+                {% for comment in photo.comments %}
+                    <div class="comment border">
+                        <div class="comment_content">
+                            <p>{{ comment.content }}</p>
+                        </div>
+                        <div class="comment_author">
+                            <p>{{ comment.user.name }} {{ comment.user.surname }}</p>
+                            <span>{{comment.data_posted.strftime('%d.%m.%Y %H:%M')}}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+            <hr>
+            <div class="row">
+
+                <div>
+                    <form class="add_comment pb-2" method="POST">
+                        {{ form.hidden_tag() }}
+                        {{ form.comment(class="form-control") }}
+                        <button type="submit" class="rounded-circle">
+                            <i class="fas fa-arrow-alt-circle-right"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>    
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".stars").rating({
+
+        "click": function (e) {
+            $("#starsInput").val(e.stars);
+            $(".add_rate").css("visibility", "visible");
+            $(".add_rate").css("display", "block");
+        }
+    });
+    
+
+</script>
+
+
+
+
+{% endblock %}
